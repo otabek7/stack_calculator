@@ -12,6 +12,20 @@ using std::cin, std::cout, std::endl, std::ostream, std::string;
  */
 void push(Stack& stack, int number) {
   // TODO: implement push function for stack
+   int size = stack.capacity;
+  int numOfNumbers = stack.count;
+
+  if(numOfNumbers == size){
+    stack.capacity = size*=2;
+  }
+  stack.numbers[size-1] = number;
+  stack.count++;
+
+  // cout << "here is the stacker at num " << stack.numbers[size-1] << endl;
+  for (int i = 0; i < stack.capacity; i++)
+   {
+     cout << stack.numbers[i] << endl;
+   }
   INFO_STRUCT(stack);
   INFO(number);
 }
