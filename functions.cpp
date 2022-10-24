@@ -1,8 +1,8 @@
 #include "functions.h"
 using std::cin, std::cout, std::endl, std::ostream, std::string;
 
-#define INFO(X)  cout << "[INFO] ("<<__FUNCTION__<<":"<<__LINE__<<") " << #X << " = " << X << endl;
-#define INFO_STRUCT(X) cout << "[INFO] ("<<__FUNCTION__<<":"<<__LINE__<<") " << #X << " count = " << X.count << endl;
+#define INFO(X) cout << "[INFO] (" << __FUNCTION__ << ":" << __LINE__ << ") " << #X << " = " << X << endl;
+#define INFO_STRUCT(X) cout << "[INFO] (" << __FUNCTION__ << ":" << __LINE__ << ") " << #X << " count = " << X.count << endl;
 
 /**
  * ----- REQUIRED -----
@@ -10,22 +10,31 @@ using std::cin, std::cout, std::endl, std::ostream, std::string;
  * @param   stack   Target stack.
  * @param   number  Number to push to stack.
  */
-void push(Stack& stack, int number) {
-  // TODO: implement push function for stack
-   int size = stack.capacity;
-  int numOfNumbers = stack.count;
+void push(Stack &stack, int number)
+{
 
-  if(numOfNumbers == size){
-    stack.capacity = size*=2;
-  }
-  stack.numbers[size-1] = number;
-  stack.count++;
+ if(stack.count == stack.capacity)
+	 	{
+	 		int *temp = new int[2*stack.capacity]{};
+			
+       for (int i = 0; i < stack.count;++i)
+			{
+	 			temp[i] = stack.numbers[i];
+	 		}
+			stack.capacity = 2*stack.capacity;
+    		temp[stack.count] = number;
+	 		stack.numbers = temp;
 
-  // cout << "here is the stacker at num " << stack.numbers[size-1] << endl;
-  for (int i = 0; i < stack.capacity; i++)
+	 	}
+   else
    {
-     cout << stack.numbers[i] << endl;
+     stack.numbers[stack.count] = number;
    }
+		
+	 	stack.count++;
+    
+    // cout << "here is the stacker at num " << stack.numbers[size-1] << endl;
+
   INFO_STRUCT(stack);
   INFO(number);
 }
@@ -36,11 +45,18 @@ void push(Stack& stack, int number) {
  * @param   stack   Target stack.
  * @return          Value of popped number.
  */
-int pop(Stack& stack) {
-  // TODO: implement pop function for stack
-  INFO_STRUCT(stack);
-  return 0;
-}
+
+ int pop(Stack &stack)
+ {
+   // TODO: implement pop function for stack
+  if(stack.count==0)
+    return INT32_MAX;
+  int element = stack.numbers[stack.count-1];
+  stack.count--;
+
+
+  return element;
+ }
 
 /**
  * ----- OPTIONAL -----
@@ -48,7 +64,8 @@ int pop(Stack& stack) {
  * @param   stack   Target statck.
  * @return          Number at top of stack.
  */
-int peek(const Stack& stack) {
+int peek(const Stack &stack)
+{
   // TODO (optional): implement peek function for stack
   INFO_STRUCT(stack);
   return 0;
