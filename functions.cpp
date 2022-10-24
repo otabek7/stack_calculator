@@ -67,6 +67,15 @@ void push(Stack &stack, int number)
 int peek(const Stack &stack)
 {
   // TODO (optional): implement peek function for stack
+  if(stack.capacity == 0){
+    return INT32_MAX;
+  }
+  else{
+    return (stack.numbers[stack.count-1]);
+
+
+  }
+
   INFO_STRUCT(stack);
   return 0;
 }
